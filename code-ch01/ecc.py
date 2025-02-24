@@ -24,7 +24,7 @@ class FieldElement:
     def __ne__(self, other):
         # this should be the inverse of the == operator
         # raise NotImplementedError
-        return note (self == other)
+        return not (self == other)
 
     # tag::source2[]
     def __add__(self, other):
@@ -52,7 +52,7 @@ class FieldElement:
         # We return an element of the same class
         # raise NotImplementedError
         num = (self.num * other.num) % self.prime
-        return self.__class_(num, self.prime)
+        return self.__class__(num, self.prime)
 
     # tag::source3[]
     def __pow__(self, exponent):
