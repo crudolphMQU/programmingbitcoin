@@ -176,10 +176,15 @@ class Point:
           return Point(x3, y3, self.a, self.b)
 
       # Case: different x (regular addition)
-      s = (other.y - self.y) / (other.x - self.x)
+        s = (other.y - self.y) / (other.x - self.x)
       x3 = s**2 - self.x - other.x
       y3 = s * (self.x - x3) - self.y
       return Point(x3, y3, self.a, self.b)
+
+        # Special case: vertical tangent (y == 0) → point at infinity
+        if self == other and self.y == 0:
+            return self.__class__(None, None, self.a, self.b)
+
 
 
 class PointTest(TestCase):
