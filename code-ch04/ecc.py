@@ -434,7 +434,8 @@ class S256Point(Point):
     # tag::source3[]
     @classmethod
     def parse(self, sec_bin):
-        '''returns a Point object from a SEC binary (not hex)'''
+        '''returns a Point objeprint(bin1_base58)
+ct from a SEC binary (not hex)'''
         if sec_bin[0] == 4:  # <1>
             x = int.from_bytes(sec_bin[1:33], 'big')
             y = int.from_bytes(sec_bin[33:65], 'big')
