@@ -121,12 +121,18 @@ class Tx:
             tx_ins.append(TxIn.parse(s))
             
         # num_outputs is a varint, use read_varint(s)
+        num_outputs = read_varint(s)
+        
         # parse num_outputs number of TxOuts
+        tx_outs = []
+        for _ in range(num_outputs):
+            tx_outs.append(TxOut.parse(s))
+            
         # locktime is an integer in 4 bytes, little-endian
         # return an instance of the class (see __init__ for args)
         # raise NotImplementedError
 
-        return cls(version, tx_ins, None, None) 
+        return cls(version, tx_ins, tx_outs, None) 
 
     # tag::source6[]
     def serialize(self):
@@ -239,9 +245,15 @@ class TxOut:
         return a TxOut object
         '''
         # amount is an integer in 8 bytes, little endian
+        amount = little_endian_to_int(s.read(8))
+        
         # use Script.parse to get the ScriptPubKey
+        script_pubkey = Script.parse(s)
+
         # return an instance of the class (see __init__ for args)
-        raise NotImplementedError
+        return cls(amount, script_pubkey)
+        # raise NotImplementedError
+
 
     # tag::source4[]
     def serialize(self):  # <1>
