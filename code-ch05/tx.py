@@ -129,10 +129,12 @@ class Tx:
             tx_outs.append(TxOut.parse(s))
             
         # locktime is an integer in 4 bytes, little-endian
+        locktime = little_endian_to_int(s.read(4))
+        
         # return an instance of the class (see __init__ for args)
         # raise NotImplementedError
 
-        return cls(version, tx_ins, tx_outs, None) 
+        return cls(version, tx_ins, tx_outs, locktime) 
 
     # tag::source6[]
     def serialize(self):
